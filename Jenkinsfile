@@ -25,7 +25,7 @@ node {
     }
 
     stage('packaging') {
-        bat "mvnw  -Pprod"
+        bat "mvnw  -Pprod -DskipTests"
         archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
     }
     stage('quality analysis') {
