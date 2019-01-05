@@ -6,17 +6,17 @@ node {
     }
 
     stage('check java') {
-        sh "java -version"
+        bat "java -version"
     }
 
     stage('clean') {
-        sh "chmod +x mvnw"
-        sh "./mvnw clean"
+        bat "chmod +x mvnw"
+        bat "./mvnw clean"
     }
 
     stage('backend tests') {
         try {
-            sh "./mvnw test"
+            bat "./mvnw test"
         } catch(err) {
             throw err
         } finally {
@@ -25,12 +25,12 @@ node {
     }
 
     stage('packaging') {
-        sh "./mvnw verify -Pprod -DskipTests"
+        bat "./mvnw verify -Pprod -DskipTests"
         archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
     }
     stage('quality analysis') {
         withSonarQubeEnv('sonar') {
-            sh "./mvnw sonar:sonar"
+            bat "./mvnw sonar:sonar"
         }
     }
 }
