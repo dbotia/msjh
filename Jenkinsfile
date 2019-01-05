@@ -10,13 +10,13 @@ node {
     }
 
     stage('clean') {
-        bat "chmod +x mvnw"
-        bat "./mvnw clean"
+    
+        bat "mvnw clean"
     }
 
     stage('backend tests') {
         try {
-            bat "./mvnw test"
+            bat "mvnw test"
         } catch(err) {
             throw err
         } finally {
@@ -25,12 +25,12 @@ node {
     }
 
     stage('packaging') {
-        bat "./mvnw verify -Pprod -DskipTests"
+        bat "mvnw verify -Pprod -DskipTests"
         archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
     }
     stage('quality analysis') {
         withSonarQubeEnv('sonar') {
-            bat "./mvnw sonar:sonar"
+            bat "mvnw sonar:sonar"
         }
     }
 }
