@@ -442,9 +442,7 @@
                     <goals>
                         <goal>execute</goal>
                     </goals>
-                    <configuration>
-                        <simulationClass>simulations.SimulationClass</simulationClass>
-                    </configuration>
+                    
                 </execution>
             </executions>
 				
